@@ -5,13 +5,10 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: radial-gradient(
-      circle at center top,
-      rgb(247, 243, 244),
-      rgb(243, 237, 239)
-    )
-    0% 0% / cover fixed;
+  background-color: var(--color-background);
   font-family: "Nunito", sans-serif;
+  width: 100%;
+  height: 100vh;
 }
 
 *,

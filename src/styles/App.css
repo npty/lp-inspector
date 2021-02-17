@@ -5,6 +5,27 @@
     flex-direction: column;
   }
 
+  .app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--color-accent);
+  }
+
+  .app-header-left {
+    display: flex;
+    align-items: center;
+  }
+
+  .app-icon {
+    font-size: 2.5rem;
+    margin-right: 1rem;
+  }
+
+  .app-header-left > h1 {
+    font-weight: 600;
+  }
+
   .app-content-container {
     width: 100%;
     padding: 1rem;

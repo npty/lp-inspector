@@ -12,7 +12,7 @@
 
   .address-input-invalid,
   .address-input-invalid:focus {
-    border: 2px solid red;
+    border: 2px solid var(--color-accent);
   }
 
   .address-input-icon {
@@ -22,7 +22,7 @@
   }
 
   .address-input-icon-invalid {
-    color: red;
+    color: var(--color-accent);
   }
 
   .address-input-container {
