@@ -1,0 +1,24 @@
+@media screen and (min-width: 360px) {
+  .app-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .app-content-container {
+    width: 100%;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .app-content-container > h1 {
+    align-self: center;
+  }
+}
+
+@media screen and (min-width: 640px) {
+  .app-content-container {
+    width: 640px;
+  }
+}

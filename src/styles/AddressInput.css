@@ -1,0 +1,50 @@
+@media screen and (min-width: 360px) {
+  .address-input {
+    border-radius: 4px;
+    padding: 10px 10px;
+    border: 2px solid green;
+    color: var(--color-text);
+    flex: 1;
+    margin-right: 1rem;
+    outline: none;
+    transition: border 0.5s ease;
+  }
+
+  .address-input-invalid,
+  .address-input-invalid:focus {
+    border: 2px solid red;
+  }
+
+  .address-input-icon {
+    min-width: 20px;
+    transition: color 0.5s ease;
+    color: green;
+  }
+
+  .address-input-icon-invalid {
+    color: red;
+  }
+
+  .address-input-container {
+    min-width: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  .address-input-label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+}
+
+@media screen and (min-width: 640px) {
+  .address-input {
+    min-width: 480px;
+  }
+
+  .address-input-container {
+    min-width: 360px;
+    max-width: 640px;
+    display: flex;
+  }
+}
