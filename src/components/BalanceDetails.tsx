@@ -39,7 +39,10 @@ function BalanceDetails({
       if (!account) return;
       if (!contractAddress) return;
 
-      const web3 = new Web3('https://bsc-dataseed3.ninicoin.io/');
+      const provider = new Web3.providers.HttpProvider('https://bsc-dataseed3.ninicoin.io/', {
+      timeout: 120000
+    })
+      const web3 = new Web3(provider);
       const contract = new web3.eth.Contract(masterape, contractAddress);
       const _poolLength = await contract.methods.poolLength().call();
       const _balances = [];

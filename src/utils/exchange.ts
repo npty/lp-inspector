@@ -12,7 +12,10 @@ export default class Exchange {
   private exchangeRouterAddress: string;
 
   constructor(exchangeRouterAddress: string) {
-    this.web3 = new Web3('https://bsc-dataseed3.ninicoin.io/');
+    const provider = new Web3.providers.HttpProvider('https://bsc-dataseed3.ninicoin.io/', {
+      timeout: 120000
+    })
+    this.web3 = new Web3(provider);
     this.exchangeContract = new this.web3.eth.Contract(
       router,
       exchangeRouterAddress
