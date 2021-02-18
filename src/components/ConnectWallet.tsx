@@ -35,7 +35,7 @@ function ConnectWallet({ children, callback }: ConnectWalletProps) {
       setBtnClass("connect-wallet-btn");
       setBtnText(children);
     }
-  }, [account, activate, active, children, error]);
+  }, [account, activate, active, callback, children, error]);
 
   function handleClick(e: React.MouseEvent<HTMLDivElement>) {
     activate(injectedConnector);

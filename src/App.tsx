@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import "./styles/App.css";
 import "./styles/constants.css";
 import { Web3ReactProvider } from "@web3-react/core";
-import { Web3Provider } from "@ethersproject/providers";
-import { useWeb3React } from "@web3-react/core";
 import AddressInput from "./components/AddressInput";
 import ConnectWallet from "./components/ConnectWallet";
 import BalanceDetails from "./components/BalanceDetails";
@@ -13,7 +11,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearchDollar } from "@fortawesome/free-solid-svg-icons";
 import Web3 from "web3";
 import { PANCAKE_ROUTER } from "./utils/constants";
-import Error from "./components/Error";
 
 function getLibrary(provider: any, connector?: any) {
   return new Web3(provider); // this will vary according to whether you use e.g. ethers or web3.js
