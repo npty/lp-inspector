@@ -2,7 +2,7 @@
   .address-input {
     border-radius: 4px;
     padding: 10px 10px;
-    border: 2px solid green;
+    border: 2px solid var(--color-accent);
     color: var(--color-text);
     flex: 1;
     outline: none;
@@ -11,13 +11,13 @@
 
   .address-input-invalid,
   .address-input-invalid:focus {
-    border: 2px solid var(--color-accent);
+    border: 2px solid white;
   }
 
   .address-input-icon {
     min-width: 20px;
     transition: color 0.5s ease;
-    color: green;
+    color: var(--color-accent);
   }
 
   .address-input-icon-invalid {

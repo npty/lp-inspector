@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./styles/App.css";
 import "./styles/constants.css";
 import { Web3ReactProvider } from "@web3-react/core";
@@ -16,6 +16,18 @@ function getLibrary(provider: any, connector?: any) {
 
 function App() {
   const [contractAddress, setContractAddress] = useState("");
+  const [routercontractAddress, setRouterContractAddress] = useState(
+    PANCAKE_ROUTER
+  );
+  const [showDetails, setShowDetails] = useState<boolean>(false);
+
+  useEffect(() => {
+    setShowDetails(contractAddress !== "" && routercontractAddress !== "");
+
+    return () => {
+      setShowDetails(false);
+    };
+  }, [routercontractAddress, contractAddress, showDetails]);
 
   console.log(contractAddress);
 
@@ -38,10 +50,19 @@ function App() {
           <AddressInput
             placeholder="Enter Router address"
             label="Router address (default to Pancakeswap)"
-            defaultValue={PANCAKE_ROUTER}
-            callback={setContractAddress}
+            defaultValue={routercontractAddress}
+            callback={setRouterContractAddress}
           />
-          <BalanceDetails contractAddress={contractAddress} />
+          <div className="app-details-section">
+            {showDetails ? (
+              <BalanceDetails
+                contractAddress={contractAddress}
+                routerContractAddress={routercontractAddress}
+              />
+            ) : (
+              <p>Fill contract addresses above to see details here.</p>
+            )}
+          </div>
         </div>
       </div>
     </Web3ReactProvider>

@@ -24,6 +24,7 @@
 
   .app-header-left > h1 {
     font-weight: 600;
+    font-size: 1.5rem;
   }
 
   .app-content-container {
@@ -31,6 +32,10 @@
     padding: 1rem;
     display: flex;
     flex-direction: column;
+  }
+
+  .app-details-section {
+    margin-top: 1rem;
   }
 
   .app-content-container > h1 {
@@ -42,4 +47,5 @@
   .app-content-container {
     width: 640px;
   }
+
 }

@@ -1,0 +1,22 @@
+.balance-card-container {
+  display: flex;
+  justify-content: space-between;
+  background: rgba(170, 149, 133, 0.5);
+  margin: 1rem 0rem;
+  align-items: center;
+}
+
+.balance-card-pair-name {
+  min-width: 160px;
+  padding: 1rem;
+}
+
+.balance-card-pair-amount {
+}
+
+.balance-card-pair-value {
+  text-align: right;
+  min-width: 160px;
+  padding: 1rem;
+  background: rgba(170, 149, 133, 0.6);
+}

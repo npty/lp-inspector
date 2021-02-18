@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../styles/AddressInput.css";
 import { validateAddress } from "../utils/validator";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 interface AddressInputProps {
   placeholder: string;
@@ -49,14 +47,6 @@ function AddressInput({
           placeholder={placeholder}
           onChange={onChange}
         />
-        {/* {valid ? (
-          <FontAwesomeIcon icon={faCheck} className="address-input-icon" />
-        ) : (
-          <FontAwesomeIcon
-            icon={faTimes}
-            className="address-input-icon address-input-icon-invalid"
-          />
-        )} */}
       </div>
     </>
   );

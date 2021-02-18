@@ -8,16 +8,15 @@ const pairAbi = require("../abis/pair.json");
 export default class Exchange {
   web3: Web3;
   exchangeContract: Contract;
-  exchangeFactoryAddress: string = '';
+  exchangeFactoryAddress: string = "";
   exchangeRouterAddress: string;
 
-  constructor(exchangeRouterAddress: string, exchangeFactoryAddress: string) {
+  constructor(exchangeRouterAddress: string) {
     this.web3 = new Web3("https://bsc-dataseed.binance.org/");
     this.exchangeContract = new this.web3.eth.Contract(
       router,
       exchangeRouterAddress
     );
-    // this.exchangeFactoryAddress = exchangeFactoryAddress
     this.exchangeRouterAddress = exchangeRouterAddress;
   }
 

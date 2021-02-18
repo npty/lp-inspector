@@ -1,7 +1,20 @@
 .balance-details-container {
-  min-height: 320px;
   background: rgba(170, 149, 133, 0.4);
   margin-top: 2rem;
   border-radius: 4px;
+}
+
+.balance-details-container > h2 {
+  border-radius: 4px;
+  background: rgba(170, 149, 133, 0.7);
+  font-size: 1.25rem;
   padding: 1rem;
+}
+
+.balance-details-status {
+  margin-left: 1rem;
+}
+
+.balance-details-content-container {
+  padding-bottom: 4px;
 }

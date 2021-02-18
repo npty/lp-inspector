@@ -1,42 +1,38 @@
 import React, { useState, useEffect } from "react";
 import "../styles/BalanceDetails.css";
+import "../styles/BalanceCard.css";
 import Web3 from "web3";
 import BigNumber from "bignumber.js";
 import { Web3Provider } from "@ethersproject/providers";
 import { useWeb3React } from "@web3-react/core";
+import Exchange from "../utils/exchange";
+import { BNB, BUSD } from "../utils/constants";
+import { weiToEth } from "../utils/unit";
+import { Balance, Token } from "../types";
+import BalanceCard from "../components/BalanceCard";
 
 const masterape = require("../abis/masterape.json");
 const pair = require("../abis/pair.json");
 const erc20 = require("../abis/erc20.json");
 
-interface Balance {
-  pool: number;
-  balance: string;
-  lpAddress: string;
-  tokenA: Token;
-  tokenB: Token;
-}
-
-interface Token {
-  name: string;
-  balance: BigNumber;
-}
-
 interface BalanceDetailsProps {
   contractAddress: string;
+  routerContractAddress: string;
 }
 
-function BalanceDetails({ contractAddress }: BalanceDetailsProps) {
+function BalanceDetails({
+  contractAddress,
+  routerContractAddress,
+}: BalanceDetailsProps) {
   const [balances, setBalances] = useState<Balance[]>([]);
   const { account } = useWeb3React<Web3Provider>();
 
+  const exchange = new Exchange(routerContractAddress);
+
   useEffect(() => {
     async function queryContract() {
-      console.log('contract', contractAddress)
       if (!account) return;
       if (!contractAddress) return;
-
-      console.log('Loading...')
 
       const web3 = new Web3("https://bsc-dataseed.binance.org/");
       const contract = new web3.eth.Contract(masterape, contractAddress);
@@ -48,8 +44,6 @@ function BalanceDetails({ contractAddress }: BalanceDetailsProps) {
           .call();
 
         if (balance !== "0") {
-          console.log("Found balance at pool:", i);
-          console.log("Balance:", balance);
           _balances.push({ pool: i, balance });
         }
       }
@@ -71,37 +65,55 @@ function BalanceDetails({ contractAddress }: BalanceDetailsProps) {
           "0": reserveA,
           "1": reserveB,
         } = await contractLP.methods.getReserves().call();
-        const tokenABalance = new BigNumber(lp.balance)
+        const tokenAmountA = new BigNumber(lp.balance)
           .dividedBy(totalSupply)
           .multipliedBy(reserveA);
 
-        const tokenBBalance = new BigNumber(lp.balance)
+        const tokenAmountB = new BigNumber(lp.balance)
           .dividedBy(totalSupply)
           .multipliedBy(reserveB);
 
-        const tokenA = contractLP.methods
+        const tokenA = await contractLP.methods
           .token0()
           .call()
-          .then((address: string) => {
-            const erc20Contract = new web3.eth.Contract(erc20, address);
-            return erc20Contract.methods.symbol().call();
-          });
-        const tokenB = contractLP.methods
+          .then((token: string) => token.toLowerCase());
+        const tokenAContract = new web3.eth.Contract(erc20, tokenA);
+        const tokenASymbol = await tokenAContract.methods.symbol().call();
+
+        const tokenB = await contractLP.methods
           .token1()
           .call()
-          .then((address: string) => {
-            const erc20Contract = new web3.eth.Contract(erc20, address);
-            return erc20Contract.methods.symbol().call();
-          });
-        const [tokenASymbol, tokenBSymbol] = await Promise.all([
-          tokenA,
-          tokenB,
-        ]);
+          .then((token: string) => token.toLowerCase());
+        const tokenBContract = new web3.eth.Contract(erc20, tokenB);
+        const tokenBSymbol = await tokenBContract.methods.symbol().call();
+
+        let worth: string = "0";
+        if (tokenA !== BUSD && tokenB !== BUSD) {
+          const bnbAmount = tokenA === BNB ? tokenAmountA : tokenAmountB;
+          const busdAmount = await exchange.getEquivalentToken(
+            BNB,
+            BUSD,
+            bnbAmount.integerValue().toFixed()
+          );
+          const _worth = new BigNumber(2)
+            .multipliedBy(busdAmount)
+            .integerValue()
+            .toFixed();
+          worth = parseFloat(weiToEth(_worth)).toFixed(2);
+        } else {
+          const busdAmount = tokenA === BUSD ? tokenAmountA : tokenAmountB;
+          const _worth = new BigNumber(2)
+            .multipliedBy(busdAmount)
+            .integerValue()
+            .toFixed();
+          worth = parseFloat(weiToEth(_worth)).toFixed(2);
+        }
 
         return {
           ...lp,
-          tokenA: { name: tokenASymbol, balance: tokenABalance },
-          tokenB: { name: tokenBSymbol, balance: tokenBBalance },
+          tokenA: { name: tokenASymbol, amount: tokenAmountA },
+          tokenB: { name: tokenBSymbol, amount: tokenAmountB },
+          worth,
         };
       });
 
@@ -109,22 +121,25 @@ function BalanceDetails({ contractAddress }: BalanceDetailsProps) {
 
       setBalances(completeBalance);
     }
-
-    console.log(contractAddress)
     queryContract();
-  }, [account, contractAddress]);
+  }, [account, contractAddress, exchange]);
 
   const balanceDetails = balances.map((b) => (
-    <p key={b.pool}>
-      Pool [{b.tokenA.name}, {b.tokenB.name}]: [
-      {b.tokenA.balance.dividedBy(1e18).integerValue().toFixed()},{" "}
-      {b.tokenB.balance.dividedBy(1e18).integerValue().toFixed()}]
-    </p>
+    <BalanceCard key={b.lpAddress} balance={b} />
   ));
 
   return (
     <div className="balance-details-container">
-      {balanceDetails.length === 0 ? <p>Enter address...</p> : balanceDetails}
+      <h2>Staking Details</h2>
+      <div className="balance-details-content-container">
+        {balanceDetails.length === 0 ? (
+          <p className="balance-details-status">
+            Fetching from staking pool...
+          </p>
+        ) : (
+          balanceDetails
+        )}
+      </div>
     </div>
   );
 }
