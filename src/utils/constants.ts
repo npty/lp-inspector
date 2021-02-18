@@ -1,0 +1,1 @@
+export const PANCAKE_ROUTER = '0x05ff2b0db69458a0750badebc4f9e13add608c7f'

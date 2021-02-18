@@ -1,0 +1,7 @@
+.balance-details-container {
+  min-height: 320px;
+  background: rgba(170, 149, 133, 0.4);
+  margin-top: 2rem;
+  border-radius: 4px;
+  padding: 1rem;
+}

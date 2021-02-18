@@ -5,7 +5,6 @@
     border: 2px solid green;
     color: var(--color-text);
     flex: 1;
-    margin-right: 1rem;
     outline: none;
     transition: border 0.5s ease;
   }
@@ -34,16 +33,17 @@
   .address-input-label {
     font-weight: 600;
     margin-bottom: 0.5rem;
+    margin-top: 1rem;
   }
 }
 
 @media screen and (min-width: 640px) {
   .address-input {
-    min-width: 480px;
+    min-width: 320px;
   }
 
   .address-input-container {
-    min-width: 360px;
+    min-width: 320px;
     max-width: 640px;
     display: flex;
   }

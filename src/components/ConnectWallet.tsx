@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Web3 from "web3";
 import { Web3Provider } from "@ethersproject/providers";
 import { useWeb3React } from "@web3-react/core";
 import { InjectedConnector } from "@web3-react/injected-connector";
@@ -11,13 +10,11 @@ interface ConnectWalletProps {
 
 const injectedConnector = new InjectedConnector({
   supportedChainIds: [
-    1, // Mainet
     56,
   ],
 });
 
 function ConnectWallet({ children }: ConnectWalletProps) {
-  const wa: any = window;
   const { activate, active, account } = useWeb3React<Web3Provider>();
   const [btnText, setBtnText] = useState(children);
 
@@ -35,22 +32,6 @@ function ConnectWallet({ children }: ConnectWalletProps) {
 
   function handleClick(e: React.MouseEvent<HTMLDivElement>) {
     activate(injectedConnector);
-    // // const enabled = ethEnabled();
-    // if (!enabled) {
-    //   alert("Please install metamask extension to use this dapp.");
-    // } else {
-    //   console.log(wallet)
-    //   // setBtnText(wallet)
-    // }
-  }
-
-  function ethEnabled() {
-    if (wa.ethereum) {
-      wa.web3 = new Web3(wa.ethereum);
-      wa.ethereum.enable();
-      return true;
-    }
-    return false;
   }
 
   return (
