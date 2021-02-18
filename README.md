@@ -3,3 +3,5 @@
 
 A tool to calculate your lp worth in the staking contract.
 
+# License
+[MIT](https://github.com/npty/lp-inspector/blob/master/LICENSE)
