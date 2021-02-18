@@ -25,7 +25,7 @@ function BalanceDetails({
   routerContractAddress,
 }: BalanceDetailsProps) {
   const [balances, setBalances] = useState<Balance[]>([]);
-  const { account } = useWeb3React<Web3Provider>();
+  const { account, error } = useWeb3React<Web3Provider>();
   const exchange = useMemo<Exchange>(
     () => new Exchange(routerContractAddress),
     [routerContractAddress]
@@ -130,18 +130,22 @@ function BalanceDetails({
     <BalanceCard key={b.lpAddress} balance={b} />
   ));
 
+  function renderOrError() {
+    if (error) {
+      console.log(error);
+    } else if (balanceDetails.length === 0) {
+      return (
+        <p className="balance-details-status">Fetching from staking pool...</p>
+      );
+    } else {
+      return balanceDetails;
+    }
+  }
+
   return (
     <div className="balance-details-container">
       <h2>Staking Details</h2>
-      <div className="balance-details-content-container">
-        {balanceDetails.length === 0 ? (
-          <p className="balance-details-status">
-            Fetching from staking pool...
-          </p>
-        ) : (
-          balanceDetails
-        )}
-      </div>
+      <div className="balance-details-content-container">{renderOrError()}</div>
     </div>
   );
 }

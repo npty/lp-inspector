@@ -15,6 +15,7 @@ const injectedConnector = new InjectedConnector({
 });
 
 function ConnectWallet({ children }: ConnectWalletProps) {
+  const { error } = useWeb3React()
   const { activate, active, account } = useWeb3React<Web3Provider>();
   const [btnText, setBtnText] = useState(children);
 
