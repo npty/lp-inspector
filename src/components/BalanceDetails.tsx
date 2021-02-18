@@ -11,6 +11,7 @@ import { weiToEth } from "../utils/unit";
 import { Balance } from "../types";
 import BalanceCard from "../components/BalanceCard";
 import Error from "../components/Error";
+import promiseRetry from "promise-retry";
 
 const masterape = require("../abis/masterape.json");
 const pair = require("../abis/pair.json");
@@ -134,18 +135,21 @@ function BalanceDetails({
     }
 
     setFetching(true);
-    queryContract()
-      .catch((e: any) => {
+    promiseRetry(function (retry, number) {
+      console.log("Attempt", number);
+
+      return queryContract().catch((e: any) => {
         if (e.message.indexOf("Invalid JSON RPC response") > -1) {
-          console.log('Retry...')
-          queryContract();
+          console.log("Error JSON RPC");
+          retry(e);
         } else if (e.message.indexOf("the correct ABI for the contract") > -1) {
           setInvalidContract(true);
         }
-      })
-      .finally(() => {
-        setFetching(false);
+        console.log(e);
       });
+    }).finally(() => {
+      setFetching(false);
+    });
   }, [account, contractAddress, exchange]);
 
   const balanceDetails = balances.map((b) => (
