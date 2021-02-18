@@ -10,6 +10,7 @@ import { BNB, BUSD } from "../utils/constants";
 import { weiToEth } from "../utils/unit";
 import { Balance } from "../types";
 import BalanceCard from "../components/BalanceCard";
+import Error from "../components/Error";
 
 const masterape = require("../abis/masterape.json");
 const pair = require("../abis/pair.json");
@@ -25,7 +26,9 @@ function BalanceDetails({
   routerContractAddress,
 }: BalanceDetailsProps) {
   const [balances, setBalances] = useState<Balance[]>([]);
-  const { account, error } = useWeb3React<Web3Provider>();
+  const [fetching, setFetching] = useState<boolean>(false);
+  const [invalidContract, setInvalidContract] = useState(false);
+  const { account } = useWeb3React<Web3Provider>();
   const exchange = useMemo<Exchange>(
     () => new Exchange(routerContractAddress),
     [routerContractAddress]
@@ -123,7 +126,15 @@ function BalanceDetails({
 
       setBalances(completeBalance);
     }
-    queryContract();
+
+    setFetching(true);
+    queryContract()
+      .catch((e) => {
+        setInvalidContract(true);
+      })
+      .finally(() => {
+        setFetching(false);
+      });
   }, [account, contractAddress, exchange]);
 
   const balanceDetails = balances.map((b) => (
@@ -131,11 +142,15 @@ function BalanceDetails({
   ));
 
   function renderOrError() {
-    if (error) {
-      console.log(error);
-    } else if (balanceDetails.length === 0) {
+    if (invalidContract) {
+      return <Error>Invalid Contract</Error>;
+    } else if (fetching) {
       return (
         <p className="balance-details-status">Fetching from staking pool...</p>
+      );
+    } else if (balanceDetails.length === 0) {
+      return (
+        <p className="balance-details-status">There're no LPs in the given staking contract.</p>
       );
     } else {
       return balanceDetails;

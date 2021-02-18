@@ -6,7 +6,7 @@ function Footer() {
     <footer className="footer-container">
       <p>
         How much is my LP worth? by <b>nopantytonight ✨</b> The source code is
-        licensed MIT.
+        licensed <b>MIT</b>.
       </p>
     </footer>
   );

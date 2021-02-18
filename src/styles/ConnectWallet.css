@@ -8,6 +8,28 @@
   background-color: transparent;
   cursor: pointer;
 }
+.connect-wallet-btn-error {
+  border: 2px solid var(--color-error-input);
+  transition: border 0.5s ease;
+}
+
+.connect-wallet-green-dot {
+  width: 10px;
+  height: 10px;
+  margin-right: 0.5rem;
+  display: inline-block;
+  border-radius: 50%;
+  background-color: green;
+}
+
+.connect-wallet-gray-dot {
+  width: 10px;
+  height: 10px;
+  margin-right: 0.5rem;
+  display: inline-block;
+  border-radius: 50%;
+  background-color: gray;
+}
 
 .connect-wallet-btn:hover {
   border: 2px solid var(--color-text);

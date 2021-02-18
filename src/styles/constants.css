@@ -3,4 +3,6 @@
   --color-background: #fff8ee;
   --color-accent: #aa9585;
   --color-text-header: rgb(91, 57, 38);
+  --color-error-background: #FF6961;
+  --color-error-input: rgba(255, 105, 97, 0.7);
 }

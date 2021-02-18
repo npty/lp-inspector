@@ -20,13 +20,13 @@
   .app-icon {
     font-size: 2rem;
     margin-right: 1rem;
-    color: var(--color-text-header)
+    color: var(--color-text-header);
   }
 
   .app-header-left > h1 {
     font-size: 1.25rem;
     font-family: "Reem Kufi", sans-serif;
-    color: var(--color-text-header)
+    color: var(--color-text-header);
   }
 
   .app-content-container {
@@ -35,6 +35,13 @@
     padding: 1rem;
     display: flex;
     flex-direction: column;
+  }
+
+  .app-connect-wallet-first {
+    flex: 1;
+    align-self: center;
+    margin-top: 4rem;
+    margin-left: 1rem;
   }
 
   .app-details-section {
