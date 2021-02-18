@@ -6,6 +6,7 @@
     color: var(--color-text);
     flex: 1;
     outline: none;
+    font-size: 1.25rem;
     transition: border 0.5s ease;
   }
 
