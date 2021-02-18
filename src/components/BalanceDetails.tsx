@@ -28,6 +28,7 @@ function BalanceDetails({
 }: BalanceDetailsProps) {
   const [balances, setBalances] = useState<Balance[]>([]);
   const [fetching, setFetching] = useState<boolean>(false);
+  const [retryNumber, setRetryNumber] = useState<number>(0);
   const [invalidContract, setInvalidContract] = useState(false);
   const { account } = useWeb3React<Web3Provider>();
   const exchange = useMemo<Exchange>(
@@ -136,11 +137,11 @@ function BalanceDetails({
 
     setFetching(true);
     promiseRetry(function (retry, number) {
+      setRetryNumber(number - 1);
       console.log("Attempt", number);
 
       return queryContract().catch((e: any) => {
         if (e.message.indexOf("Invalid JSON RPC response") > -1) {
-          console.log("Error JSON RPC");
           retry(e);
         } else if (e.message.indexOf("the correct ABI for the contract") > -1) {
           setInvalidContract(true);
@@ -161,7 +162,10 @@ function BalanceDetails({
       return <Error>Invalid Contract</Error>;
     } else if (fetching) {
       return (
-        <p className="balance-details-status">Fetching from staking pool...</p>
+        <p className="balance-details-status">
+          Fetching from staking pool...{" "}
+          {retryNumber ? <span>(Retry: {retryNumber})</span> : ''}
+        </p>
       );
     } else if (balanceDetails.length === 0) {
       return (
