@@ -5,6 +5,7 @@ import { Web3ReactProvider } from "@web3-react/core";
 import AddressInput from "./components/AddressInput";
 import ConnectWallet from "./components/ConnectWallet";
 import BalanceDetails from "./components/BalanceDetails";
+import Footer from "./components/Footer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import Web3 from "web3";
@@ -38,7 +39,7 @@ function App() {
           <div className="app-header">
             <div className="app-header-left">
               <FontAwesomeIcon icon={faSearch} className="app-icon" />
-              <h1>BSC LP Inspector</h1>
+              <h1>How much is my LP worth?</h1>
             </div>
             <ConnectWallet>Connect</ConnectWallet>
           </div>
@@ -63,6 +64,7 @@ function App() {
               <p>Fill contract addresses above to see details here.</p>
             )}
           </div>
+          <Footer />
         </div>
       </div>
     </Web3ReactProvider>
