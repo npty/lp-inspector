@@ -12,7 +12,7 @@ export default class Exchange {
   private exchangeRouterAddress: string;
 
   constructor(exchangeRouterAddress: string) {
-    this.web3 = new Web3("https://bsc-dataseed.binance.org/");
+    this.web3 = new Web3('https://bsc-dataseed3.ninicoin.io/');
     this.exchangeContract = new this.web3.eth.Contract(
       router,
       exchangeRouterAddress
