@@ -7,7 +7,7 @@ import "../styles/ConnectWallet.css";
 
 interface ConnectWalletProps {
   children: React.ReactNode;
-  callback: React.Dispatch<React.SetStateAction<string>>
+  callback: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const injectedConnector = new InjectedConnector({
@@ -18,7 +18,6 @@ function ConnectWallet({ children, callback }: ConnectWalletProps) {
   const { activate, active, account, error } = useWeb3React<Web3Provider>();
   const [btnText, setBtnText] = useState(children);
   const [btnClass, setBtnClass] = useState("connect-wallet-btn");
-
 
   useEffect(() => {
     if (error && error instanceof UnsupportedChainIdError) {
@@ -31,7 +30,7 @@ function ConnectWallet({ children, callback }: ConnectWalletProps) {
         "..." +
         account.substring(account.length - 4, account.length);
       setBtnText(ellisizeText);
-      callback(account)
+      callback(account);
     } else {
       setBtnClass("connect-wallet-btn");
       setBtnText(children);
@@ -44,10 +43,13 @@ function ConnectWallet({ children, callback }: ConnectWalletProps) {
 
   return (
     <div className="connect-wallet-container" onClick={handleClick}>
-      <button className={btnClass}>
-        {active ? <span className="connect-wallet-green-dot"></span> : <span className="connect-wallet-gray-dot"></span>}
-        {btnText}
-      </button>
+      {!active ? (
+        <button className={btnClass} disabled={active}>
+          {btnText}
+        </button>
+      ) : (
+        <p>{btnText}</p>
+      )}
     </div>
   );
 }

@@ -1,8 +1,9 @@
 :root {
   --color-text: rgb(20, 1, 8);
   --color-background: #fff8ee;
-  --color-accent: #aa9585;
+  --color-hover: #77685d;
+  --color-accent:rgb(170, 149, 133);
   --color-text-header: rgb(91, 57, 38);
   --color-error-background: #FF6961;
-  --color-error-input: rgba(255, 105, 97, 0.7);
+  --color-error-input: rgba(170, 149, 133, 0.4);
 }

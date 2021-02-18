@@ -8,6 +8,22 @@
   background-color: transparent;
   cursor: pointer;
 }
+
+.connect-wallet-btn:hover:enabled {
+  border: 2px solid var(--color-hover);
+  box-shadow: 2px 2px var(--color-hover);
+  transition: all 0.5s ease;
+  transition-property: border, box-shadow;
+}
+
+.connect-wallet-btn:active {
+  transform: translateY(2px);
+}
+
+.connect-wallet-container > p {
+  color: var(--color-text);
+}
+
 .connect-wallet-btn-error {
   border: 2px solid var(--color-error-input);
   transition: border 0.5s ease;
@@ -31,13 +47,3 @@
   background-color: gray;
 }
 
-.connect-wallet-btn:hover {
-  border: 2px solid var(--color-text);
-  box-shadow: 2px 2px #666;
-  transition: all 0.5s ease;
-  transition-property: border, box-shadow;
-}
-
-.connect-wallet-btn:active {
-  transform: translateY(2px);
-}
