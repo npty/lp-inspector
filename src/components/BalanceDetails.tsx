@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import "../styles/BalanceDetails.css";
 import "../styles/BalanceCard.css";
 import Web3 from "web3";
@@ -8,7 +8,7 @@ import { useWeb3React } from "@web3-react/core";
 import Exchange from "../utils/exchange";
 import { BNB, BUSD } from "../utils/constants";
 import { weiToEth } from "../utils/unit";
-import { Balance, Token } from "../types";
+import { Balance } from "../types";
 import BalanceCard from "../components/BalanceCard";
 
 const masterape = require("../abis/masterape.json");
@@ -26,8 +26,10 @@ function BalanceDetails({
 }: BalanceDetailsProps) {
   const [balances, setBalances] = useState<Balance[]>([]);
   const { account } = useWeb3React<Web3Provider>();
-
-  const exchange = new Exchange(routerContractAddress);
+  const exchange = useMemo<Exchange>(
+    () => new Exchange(routerContractAddress),
+    [routerContractAddress]
+  );
 
   useEffect(() => {
     async function queryContract() {

@@ -6,10 +6,10 @@ const router = require("../abis/router.json");
 const pairAbi = require("../abis/pair.json");
 
 export default class Exchange {
-  web3: Web3;
-  exchangeContract: Contract;
-  exchangeFactoryAddress: string = "";
-  exchangeRouterAddress: string;
+  private web3: Web3;
+  private exchangeContract: Contract;
+  private exchangeFactoryAddress: string = "";
+  private exchangeRouterAddress: string;
 
   constructor(exchangeRouterAddress: string) {
     this.web3 = new Web3("https://bsc-dataseed.binance.org/");
