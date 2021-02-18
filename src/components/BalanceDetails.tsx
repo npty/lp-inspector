@@ -136,6 +136,7 @@ function BalanceDetails({
     }
 
     setFetching(true);
+    setInvalidContract(false)
     promiseRetry(function (retry, number) {
       setRetryNumber(number - 1);
       console.log("Attempt", number);
@@ -158,15 +159,15 @@ function BalanceDetails({
   ));
 
   function renderOrError() {
-    if (invalidContract) {
-      return <Error>Invalid Contract</Error>;
-    } else if (fetching) {
+    if (fetching) {
       return (
         <p className="balance-details-status">
           Fetching from staking pool...{" "}
-          {retryNumber ? <span>(Retry: {retryNumber})</span> : ''}
+          {retryNumber ? <span>(Retry: {retryNumber})</span> : ""}
         </p>
       );
+    } else if (invalidContract) {
+      return <Error>Invalid Contract</Error>;
     } else if (balanceDetails.length === 0) {
       return (
         <p className="balance-details-status">
