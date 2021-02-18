@@ -7,7 +7,7 @@ import ConnectWallet from "./components/ConnectWallet";
 import BalanceDetails from "./components/BalanceDetails";
 import Footer from "./components/Footer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faSearchDollar } from "@fortawesome/free-solid-svg-icons";
 import Web3 from "web3";
 import { PANCAKE_ROUTER } from "./utils/constants";
 
@@ -38,7 +38,7 @@ function App() {
         <div className="app-content-container">
           <div className="app-header">
             <div className="app-header-left">
-              <FontAwesomeIcon icon={faSearch} className="app-icon" />
+              <FontAwesomeIcon icon={faSearchDollar} className="app-icon" />
               <h1>How much is my LP worth?</h1>
             </div>
             <ConnectWallet>Connect</ConnectWallet>
