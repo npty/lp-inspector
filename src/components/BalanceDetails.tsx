@@ -39,9 +39,12 @@ function BalanceDetails({
       if (!account) return;
       if (!contractAddress) return;
 
-      const provider = new Web3.providers.HttpProvider('https://bsc-dataseed3.ninicoin.io/', {
-      timeout: 120000
-    })
+      const provider = new Web3.providers.HttpProvider(
+        "https://bsc-dataseed3.ninicoin.io/",
+        {
+          timeout: 120000,
+        }
+      );
       const web3 = new Web3(provider);
       const contract = new web3.eth.Contract(masterape, contractAddress);
       const _poolLength = await contract.methods.poolLength().call();
@@ -132,8 +135,13 @@ function BalanceDetails({
 
     setFetching(true);
     queryContract()
-      .catch((e) => {
-        setInvalidContract(true);
+      .catch((e: any) => {
+        if (e.message.indexOf("Invalid JSON RPC response") > -1) {
+          console.log('Retry...')
+          queryContract();
+        } else if (e.message.indexOf("the correct ABI for the contract") > -1) {
+          setInvalidContract(true);
+        }
       })
       .finally(() => {
         setFetching(false);
@@ -153,7 +161,9 @@ function BalanceDetails({
       );
     } else if (balanceDetails.length === 0) {
       return (
-        <p className="balance-details-status">There're no LPs in the given staking contract.</p>
+        <p className="balance-details-status">
+          There're no LPs in the given staking contract.
+        </p>
       );
     } else {
       return balanceDetails;

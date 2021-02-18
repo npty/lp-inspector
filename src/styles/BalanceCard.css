@@ -9,22 +9,28 @@
   }
 
   .balance-card-pair-name {
-    min-width: 160px;
+    min-width: 140px;
     padding: 1rem;
   }
 
   .balance-card-pair-amount {
+    flex: 1;
+    text-align: center;
   }
 
   .balance-card-pair-value {
     text-align: right;
-    min-width: 140px;
+    min-width: 130px;
     padding: 1rem;
     background: rgba(170, 149, 133, 0.6);
   }
 }
 
 @media screen and (min-width: 960px) {
+  .balance-card-container {
+    font-size: 1rem;
+  }
+
   .balance-card-pair-name {
     min-width: 160px;
     padding: 1rem;
