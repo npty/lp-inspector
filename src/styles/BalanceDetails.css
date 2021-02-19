@@ -9,7 +9,22 @@
   background: rgba(170, 149, 133, 0.7);
   font-size: 1.25rem;
   padding: 1rem;
+  display: flex;
+  justify-content: space-between;
 }
+
+.balance-details-container > h2 > button {
+  outline: none;
+  background: transparent;
+  border: 2px solid var(--color-text);
+  cursor: pointer;
+}
+
+.balance-details-container > h2 > button:active {
+  transform: translateY(4px);
+}
+
+
 
 .balance-details-status {
   margin-left: 1rem;
