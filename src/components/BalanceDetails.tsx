@@ -103,7 +103,7 @@ function BalanceDetails({
     if (fetching) {
       return (
         <p className="balance-details-status">
-          Fetching from staking pool...{" "}
+          Fetching data from the staking pool...{" "}
           {retryNumber ? <span>(Retry: {retryNumber})</span> : ""}
         </p>
       );

@@ -28,10 +28,10 @@ function BalanceCard({ balance }: BalanceCardProps) {
 
   function renderBalanceLP(balance: BalanceLP) {
     const _tokenAAmount = balance.tokenA.amount.dividedBy(1e18).toFixed();
-    const tokenAAmount = parseFloat(_tokenAAmount).toFixed(0);
+    const tokenAAmount = parseFloat(_tokenAAmount).toFixed(2);
 
     const _tokenBAmount = balance.tokenB.amount.dividedBy(1e18).toFixed();
-    const tokenBAmount = parseFloat(_tokenBAmount).toFixed(0);
+    const tokenBAmount = parseFloat(_tokenBAmount).toFixed(2);
     return (
       <div className="balance-card-container">
         <div className="balance-card-pair-name">
