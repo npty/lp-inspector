@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import "../styles/AddressInput.css";
+import Dropdown from "./Dropdown";
+import { ContractPreset } from '../types'
 import { validateAddress } from "../utils/validator";
 
 interface AddressInputProps {
   placeholder: string;
   label: string;
   defaultValue?: string;
+  presets: ContractPreset[],
   callback: React.Dispatch<React.SetStateAction<string>>;
 }
 
@@ -13,6 +16,7 @@ function AddressInput({
   placeholder,
   label,
   defaultValue,
+  presets,
   callback,
 }: AddressInputProps) {
   const [address, setAddress] = useState(defaultValue || "");
@@ -23,7 +27,11 @@ function AddressInput({
       const validAddress = validateAddress(defaultValue);
       setValid(validAddress);
     }
-  }, [defaultValue]);
+
+    if (address) {
+      callback(address);
+    }
+  }, [defaultValue, address, callback]);
 
   function onChange(e: React.ChangeEvent<HTMLInputElement>) {
     const newValue = e.target.value;
@@ -37,7 +45,10 @@ function AddressInput({
 
   return (
     <>
-      <label className="address-input-label">{label}</label>
+      <div className="address-input-header">
+        <label className="address-input-label">{label}</label>
+        <Dropdown callback={setAddress} presets={presets}/>
+      </div>
       <div className="address-input-container">
         <input
           className={

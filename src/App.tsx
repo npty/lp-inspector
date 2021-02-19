@@ -10,7 +10,11 @@ import Footer from "./components/Footer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearchDollar } from "@fortawesome/free-solid-svg-icons";
 import Web3 from "web3";
-import { PANCAKE_ROUTER } from "./utils/constants";
+import {
+  masterChefPresets,
+  PANCAKE_ROUTER,
+  routerPresets,
+} from "./utils/constants";
 
 function getLibrary(provider: any, connector?: any) {
   return new Web3(provider); // this will vary according to whether you use e.g. ethers or web3.js
@@ -21,7 +25,7 @@ function App() {
   const [routercontractAddress, setRouterContractAddress] = useState(
     PANCAKE_ROUTER
   );
-  const [address, setAddress] = useState<string>('');
+  const [address, setAddress] = useState<string>("");
   const [showDetails, setShowDetails] = useState<boolean>(false);
 
   useEffect(() => {
@@ -48,12 +52,14 @@ function App() {
               <AddressInput
                 placeholder="Enter Masterchef address"
                 label="MasterChef address"
+                presets={masterChefPresets}
                 callback={setContractAddress}
               />
               <AddressInput
                 placeholder="Enter Router address"
                 label="Router address (default to Pancakeswap)"
                 defaultValue={routercontractAddress}
+                presets={routerPresets}
                 callback={setRouterContractAddress}
               />
               <div className="app-details-section">
@@ -68,9 +74,11 @@ function App() {
               </div>
             </>
           ) : (
-            <p className="app-connect-wallet-first">Connect wallet to use the app.</p>
+            <p className="app-connect-wallet-first">
+              Connect wallet to use the app.
+            </p>
           )}
-          <Footer showDonate={address !== ''} />
+          <Footer showDonate={address !== ""} />
         </div>
       </div>
     </Web3ReactProvider>

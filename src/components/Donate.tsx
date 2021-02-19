@@ -12,7 +12,7 @@ function Donate() {
         gas: "0xC350",
         to: "0x7FAC3878A3D730bb4b4267b71EF1be02589e8dA3",
         from: ethereum.selectedAddress,
-        value: "0x6F05B59D3B20000",
+        value: "0x16345785D8A0000",
       };
 
       await ethereum.request({

@@ -10,6 +10,11 @@
     transition: border 0.5s ease;
   }
 
+  .address-input-header {
+    display: flex;
+    align-items: center;
+  }
+
   .address-input-invalid,
   .address-input-invalid:focus {
     border: 2px solid var(--color-error-input);

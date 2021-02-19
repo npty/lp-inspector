@@ -21,3 +21,8 @@ export interface Token {
   name: string;
   amount: BigNumber;
 }
+
+export interface ContractPreset {
+  name: string;
+  address: string;
+}
