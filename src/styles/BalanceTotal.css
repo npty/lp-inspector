@@ -15,9 +15,20 @@
 
   .balance-total-value {
     text-align: right;
-    min-width: 130px;
-    padding: 1rem;
+    min-width: 115px;
+    padding: 1rem 0.5rem;
     background: rgba(170, 149, 133, 0.6);
+  }
+}
+
+@media screen and (min-width: 480px) {
+  .balance-total-title {
+    text-transform: uppercase;
+    margin: 0rem 1.5rem;
+  }
+
+  .balance-total-value {
+    min-width: 130px;
   }
 }
 

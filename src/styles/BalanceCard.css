@@ -6,11 +6,37 @@
     margin: 1rem 0rem;
     align-items: center;
     font-size: 0.8rem;
+    padding-left: 0.5rem;
+  }
+
+  .balance-card-pair-name {
+    display: none;
+  }
+
+  .balance-card-pair-amount {
+    flex: 1;
+    margin-left: 0.5rem;
+  }
+
+  .balance-card-pair-value {
+    text-align: right;
+    min-width: 115px;
+    padding: 1rem 0.5rem;
+    background: rgba(170, 149, 133, 0.6);
+  }
+}
+
+@media screen and (min-width: 480px) {
+  .balance-card-container {
+    margin: 1rem 0rem;
+    align-items: center;
+    font-size: 0.8rem;
   }
 
   .balance-card-pair-name {
     min-width: 140px;
     padding: 1rem;
+    display: block;
   }
 
   .balance-card-pair-amount {
@@ -21,8 +47,6 @@
   .balance-card-pair-value {
     text-align: right;
     min-width: 130px;
-    padding: 1rem;
-    background: rgba(170, 149, 133, 0.6);
   }
 }
 
