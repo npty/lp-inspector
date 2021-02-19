@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useMemo } from "react";
 import "../styles/BalanceDetails.css";
 import "../styles/BalanceCard.css";
+import "../styles/BalanceTotal.css";
 import Web3 from "web3";
 import { Web3Provider } from "@ethersproject/providers";
 import { useWeb3React } from "@web3-react/core";
 import Exchange from "../utils/exchange";
 import { BalanceLP, Balance } from "../types";
 import BalanceCard from "../components/BalanceCard";
+import BalanceTotal from "../components/BalanceTotal";
 import Error from "../components/Error";
 import promiseRetry from "promise-retry";
 import { calculate } from "../utils/token";
@@ -80,7 +82,6 @@ function BalanceDetails({
     setInvalidContract(false);
     promiseRetry(function (retry, number) {
       setRetryNumber(number - 1);
-      console.log("Attempt", number);
 
       return queryContract().catch((e: any) => {
         if (e.message.indexOf("Invalid JSON RPC response") > -1) {
@@ -88,7 +89,6 @@ function BalanceDetails({
         } else if (e.message.indexOf("the correct ABI for the contract") > -1) {
           setInvalidContract(true);
         }
-        console.log(e);
       });
     }).finally(() => {
       setFetching(false);
@@ -116,7 +116,12 @@ function BalanceDetails({
         </p>
       );
     } else {
-      return balanceDetails;
+      return (
+        <>
+          {balanceDetails}
+          {<BalanceTotal balances={balances} />}
+        </>
+      );
     }
   }
 

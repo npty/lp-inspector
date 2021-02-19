@@ -102,7 +102,6 @@ async function calculateBalance(
   lp: BaseBalance,
   routerContractAddress: string
 ): Promise<Balance> {
-  console.log("CAFE Amount", lp.balance);
   const contract = new web3.eth.Contract(erc20, lp.lpAddress);
   const tokenSymbol = await contract.methods.symbol().call();
   const tokenAmount = lp.balance;

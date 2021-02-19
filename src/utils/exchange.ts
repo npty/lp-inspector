@@ -25,7 +25,6 @@ export default class Exchange {
 
   async getEquivalentToken(tokenA: string, tokenB: string, amount: string) {
     const [reserveA, reserveB] = await this.getReserves(tokenA, tokenB);
-    console.log([reserveA, reserveB] )
     return this.exchangeContract.methods
       .getAmountOut(amount, reserveA, reserveB)
       .call();
