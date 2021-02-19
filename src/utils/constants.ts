@@ -39,10 +39,6 @@ export const masterChefPresets = [
 
 export const routerPresets = [
   {
-    name: "-",
-    address: "",
-  },
-  {
     name: "PancakeSwap",
     address: "0x73feaa1ee314f8c655e354234017be2193c9e24e",
   },
