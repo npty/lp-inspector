@@ -7,6 +7,7 @@ interface FooterProps {
 }
 
 function Footer({ showDonate }: FooterProps) {
+
   return (
     <footer className="footer-container">
       {showDonate && <Donate />}
