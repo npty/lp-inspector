@@ -70,7 +70,7 @@ function App() {
           ) : (
             <p className="app-connect-wallet-first">Connect wallet to use the app.</p>
           )}
-          <Footer />
+          <Footer showDonate={address !== ''} />
         </div>
       </div>
     </Web3ReactProvider>

@@ -1,0 +1,21 @@
+.donate-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.donate-container > button {
+  outline: none;
+  border: 0px;
+  text-decoration: underline;
+  color: var(--color-text-header);
+  background: transparent;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+}
+
+.donate-container > button:active {
+  transform: translateY(4px);
+}
+
