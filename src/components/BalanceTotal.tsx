@@ -5,8 +5,8 @@ interface BalanceTotalProps {
   balances: (Balance | BalanceLP)[];
 }
 
-function numberWithCommas(x: number) {
-  return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+function numberWithCommas(x: string|number) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
 function BalanceTotal({ balances }: BalanceTotalProps) {

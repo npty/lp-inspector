@@ -6,7 +6,7 @@ interface BalanceCardProps {
 }
 
 function numberWithCommas(x: string) {
-  return x.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+  return x.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
 function BalanceCard({ balance }: BalanceCardProps) {
@@ -53,9 +53,6 @@ function BalanceCard({ balance }: BalanceCardProps) {
   } else {
     return renderBalance(balance);
   }
-
-  // return { balance is Balance ?
-  // }
 }
 
 function instanceOfBalanceLP(data: any): data is BalanceLP {

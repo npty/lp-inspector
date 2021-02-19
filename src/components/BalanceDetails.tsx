@@ -36,11 +36,10 @@ function BalanceDetails({
     refreshCallback();
   }, [refreshCallback]);
 
-  const balanceDetails = balances.map((b) => (
-    <BalanceCard key={b.lpAddress} balance={b} />
-  ));
-
   function renderOrError() {
+    const balanceDetails = balances.map((b) => (
+      <BalanceCard key={b.lpAddress} balance={b} />
+    ));
     if (fetching) {
       return (
         <p className="balance-details-status">
