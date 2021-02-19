@@ -109,14 +109,21 @@ async function calculateBalance(
     name: tokenSymbol,
     amount: new BigNumber(tokenAmount),
   };
-  const exchange = new Exchange(routerContractAddress);
-  const [reserveA, reserveB] = await exchange.getReserves(lp.lpAddress, BUSD);
-  const busdAmount = new BigNumber(reserveA)
-    .div(reserveB)
-    .multipliedBy(tokenAmount)
-    .integerValue()
-    .toFixed();
-  const worth = parseFloat(weiToEth(busdAmount)).toFixed(2);
+
+  let worth = "0";
+
+  if (lp.lpAddress.toLowerCase() !== BUSD) {
+    const exchange = new Exchange(routerContractAddress);
+    const [reserveA, reserveB] = await exchange.getReserves(lp.lpAddress, BUSD);
+    const busdAmount = new BigNumber(reserveA)
+      .div(reserveB)
+      .multipliedBy(tokenAmount)
+      .integerValue()
+      .toFixed();
+    worth = parseFloat(weiToEth(busdAmount)).toFixed(2);
+  } else {
+    worth = parseFloat(weiToEth(lp.balance)).toFixed(2);
+  }
 
   return {
     ...lp,
