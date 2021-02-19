@@ -13,7 +13,7 @@ export const masterChefPresets = [
   },
   {
     name: "ApeSwap",
-    address: "0x73feaa1ee314f8c655e354234017be2193c9e24e",
+    address: "0x5c8D727b265DBAfaba67E050f2f739cAeEB4A6F9",
   },
   {
     name: "Goose",
