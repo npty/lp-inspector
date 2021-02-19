@@ -22,7 +22,7 @@ function BalanceTotal({ balances }: BalanceTotalProps) {
     <div className="balance-total-container">
       <div className="balance-total-title">Total worth</div>
       <div className="balance-total-value">
-        {numberWithCommas(calculate(balances))} USD
+        {numberWithCommas(parseFloat(calculate(balances).toFixed(2)))} USD
       </div>
     </div>
   );
