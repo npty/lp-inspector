@@ -2,20 +2,16 @@ import React, { useState, useEffect, useMemo } from "react";
 import "../styles/BalanceDetails.css";
 import "../styles/BalanceCard.css";
 import Web3 from "web3";
-import BigNumber from "bignumber.js";
 import { Web3Provider } from "@ethersproject/providers";
 import { useWeb3React } from "@web3-react/core";
 import Exchange from "../utils/exchange";
-import { BNB, BUSD } from "../utils/constants";
-import { weiToEth } from "../utils/unit";
-import { Balance } from "../types";
+import { BalanceLP, Balance } from "../types";
 import BalanceCard from "../components/BalanceCard";
 import Error from "../components/Error";
 import promiseRetry from "promise-retry";
+import { calculate } from "../utils/token";
 
 const masterape = require("../abis/masterape.json");
-const pair = require("../abis/pair.json");
-const erc20 = require("../abis/erc20.json");
 
 interface BalanceDetailsProps {
   contractAddress: string;
@@ -26,7 +22,7 @@ function BalanceDetails({
   contractAddress,
   routerContractAddress,
 }: BalanceDetailsProps) {
-  const [balances, setBalances] = useState<Balance[]>([]);
+  const [balances, setBalances] = useState<(BalanceLP | Balance)[]>([]);
   const [fetching, setFetching] = useState<boolean>(false);
   const [retryNumber, setRetryNumber] = useState<number>(0);
   const [invalidContract, setInvalidContract] = useState(false);
@@ -72,62 +68,7 @@ function BalanceDetails({
       );
 
       const _balanceLPPair = _balancesLP.map(async (lp) => {
-        const contractLP = new web3.eth.Contract(pair, lp.lpAddress);
-        const totalSupply = await contractLP.methods.totalSupply().call();
-        const {
-          "0": reserveA,
-          "1": reserveB,
-        } = await contractLP.methods.getReserves().call();
-        const tokenAmountA = new BigNumber(lp.balance)
-          .dividedBy(totalSupply)
-          .multipliedBy(reserveA);
-
-        const tokenAmountB = new BigNumber(lp.balance)
-          .dividedBy(totalSupply)
-          .multipliedBy(reserveB);
-
-        const tokenA = await contractLP.methods
-          .token0()
-          .call()
-          .then((token: string) => token.toLowerCase());
-        const tokenAContract = new web3.eth.Contract(erc20, tokenA);
-        const tokenASymbol = await tokenAContract.methods.symbol().call();
-
-        const tokenB = await contractLP.methods
-          .token1()
-          .call()
-          .then((token: string) => token.toLowerCase());
-        const tokenBContract = new web3.eth.Contract(erc20, tokenB);
-        const tokenBSymbol = await tokenBContract.methods.symbol().call();
-
-        let worth: string = "0";
-        if (tokenA !== BUSD && tokenB !== BUSD) {
-          const bnbAmount = tokenA === BNB ? tokenAmountA : tokenAmountB;
-          const busdAmount = await exchange.getEquivalentToken(
-            BNB,
-            BUSD,
-            bnbAmount.integerValue().toFixed()
-          );
-          const _worth = new BigNumber(2)
-            .multipliedBy(busdAmount)
-            .integerValue()
-            .toFixed();
-          worth = parseFloat(weiToEth(_worth)).toFixed(2);
-        } else {
-          const busdAmount = tokenA === BUSD ? tokenAmountA : tokenAmountB;
-          const _worth = new BigNumber(2)
-            .multipliedBy(busdAmount)
-            .integerValue()
-            .toFixed();
-          worth = parseFloat(weiToEth(_worth)).toFixed(2);
-        }
-
-        return {
-          ...lp,
-          tokenA: { name: tokenASymbol, amount: tokenAmountA },
-          tokenB: { name: tokenBSymbol, amount: tokenAmountB },
-          worth,
-        };
+        return calculate(web3, lp, routerContractAddress);
       });
 
       const completeBalance = await Promise.all(_balanceLPPair);
@@ -136,7 +77,7 @@ function BalanceDetails({
     }
 
     setFetching(true);
-    setInvalidContract(false)
+    setInvalidContract(false);
     promiseRetry(function (retry, number) {
       setRetryNumber(number - 1);
       console.log("Attempt", number);
@@ -152,7 +93,7 @@ function BalanceDetails({
     }).finally(() => {
       setFetching(false);
     });
-  }, [account, contractAddress, exchange]);
+  }, [account, contractAddress, exchange, routerContractAddress]);
 
   const balanceDetails = balances.map((b) => (
     <BalanceCard key={b.lpAddress} balance={b} />
