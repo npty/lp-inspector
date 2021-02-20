@@ -11,7 +11,9 @@ function numberWithCommas(x: string) {
 
 function BalanceCard({ balance }: BalanceCardProps) {
   function renderBalance(balance: Balance) {
-    const _tokenAmount = balance.token.amount.dividedBy(1e18).toFixed();
+    const _tokenAmount = balance.token.amount
+      .dividedBy(10 ** balance.token.decimals)
+      .toFixed();
     const tokenAmount = parseFloat(_tokenAmount).toFixed(2);
     return (
       <div className="balance-card-container">
@@ -27,10 +29,15 @@ function BalanceCard({ balance }: BalanceCardProps) {
   }
 
   function renderBalanceLP(balance: BalanceLP) {
-    const _tokenAAmount = balance.tokenA.amount.dividedBy(1e18).toFixed();
+    console.log(balance)
+    const _tokenAAmount = balance.tokenA.amount
+      .dividedBy(10 ** balance.tokenA.decimals)
+      .toFixed();
     const tokenAAmount = parseFloat(_tokenAAmount).toFixed(2);
 
-    const _tokenBAmount = balance.tokenB.amount.dividedBy(1e18).toFixed();
+    const _tokenBAmount = balance.tokenB.amount
+      .dividedBy(10 ** balance.tokenB.decimals)
+      .toFixed();
     const tokenBAmount = parseFloat(_tokenBAmount).toFixed(2);
     return (
       <div className="balance-card-container">

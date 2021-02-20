@@ -20,6 +20,7 @@ export interface Balance extends BaseBalance {
 export interface Token {
   name: string;
   amount: BigNumber;
+  decimals: number;
 }
 
 export interface ContractPreset {

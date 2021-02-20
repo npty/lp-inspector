@@ -38,6 +38,10 @@ export const masterChefPresets = [
   {
     name: "Ramen",
     address: "0x97dd424b4628c8d3bd7fcf3a4e974cebba011651"
+  },
+  {
+    name: "XOXO",
+    address: "0x99724a8e73e3c100b8d2d9e118464a7837891d02"
   }
 ];
 

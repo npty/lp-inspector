@@ -57,6 +57,7 @@ async function calculateBalanceLP(
     .then((token: string) => token.toLowerCase());
   const tokenAContract = new web3.eth.Contract(erc20, tokenA);
   const tokenASymbol = await tokenAContract.methods.symbol().call();
+  const tokenADecimals = await tokenAContract.methods.decimals().call();
 
   const tokenB = await contractLP.methods
     .token1()
@@ -64,6 +65,7 @@ async function calculateBalanceLP(
     .then((token: string) => token.toLowerCase());
   const tokenBContract = new web3.eth.Contract(erc20, tokenB);
   const tokenBSymbol = await tokenBContract.methods.symbol().call();
+  const tokenBDecimals = await tokenBContract.methods.decimals().call();
 
   let worth: string = "0";
   if (tokenA !== BUSD && tokenB !== BUSD) {
@@ -89,8 +91,8 @@ async function calculateBalanceLP(
 
   return {
     ...lp,
-    tokenA: { name: tokenASymbol, amount: tokenAmountA },
-    tokenB: { name: tokenBSymbol, amount: tokenAmountB },
+    tokenA: { name: tokenASymbol, amount: tokenAmountA, decimals: tokenADecimals },
+    tokenB: { name: tokenBSymbol, amount: tokenAmountB, decimals: tokenBDecimals },
     worth,
   };
 }
@@ -103,10 +105,12 @@ async function calculateBalance(
 ): Promise<Balance> {
   const contract = new web3.eth.Contract(erc20, lp.lpAddress);
   const tokenSymbol = await contract.methods.symbol().call();
+  const tokenDecimals = await contract.methods.decimals().call();
   const tokenAmount = lp.balance;
   const token = {
     name: tokenSymbol,
     amount: new BigNumber(tokenAmount),
+    decimals: tokenDecimals
   };
 
   let worth = "0";
