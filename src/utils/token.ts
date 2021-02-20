@@ -67,12 +67,11 @@ async function calculateBalanceLP(
 
   let worth: string = "0";
   if (tokenA !== BUSD && tokenB !== BUSD) {
-    const bnbAmount = tokenA === BNB ? tokenAmountA : tokenAmountB;
     const exchange = new Exchange(routerContractAddress);
     const busdAmount = await exchange.getEquivalentToken(
-      BNB,
+      tokenA,
       BUSD,
-      bnbAmount.integerValue().toFixed()
+      tokenAmountA.integerValue().toFixed()
     );
     const _worth = new BigNumber(2)
       .multipliedBy(busdAmount)
