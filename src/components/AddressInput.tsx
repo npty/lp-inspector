@@ -9,7 +9,9 @@ interface AddressInputProps {
   label: string;
   defaultValue?: string;
   presets?: ContractPreset[];
-  callback: React.Dispatch<React.SetStateAction<string>>;
+  callback:
+    | React.Dispatch<React.SetStateAction<string>>
+    | ((value: string) => void);
 }
 
 function AddressInput({
@@ -28,7 +30,7 @@ function AddressInput({
       setValid(validAddress);
     }
 
-    if (address) {
+    if (validateAddress(address)) {
       callback(address);
     }
   }, [defaultValue, address, callback]);

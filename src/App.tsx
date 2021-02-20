@@ -20,12 +20,16 @@ function getLibrary(provider: any, connector?: any) {
   return new Web3(provider); // this will vary according to whether you use e.g. ethers or web3.js
 }
 
+const wa: any = window;
+
 function App() {
   const [contractAddress, setContractAddress] = useState("");
   const [routercontractAddress, setRouterContractAddress] = useState(
     PANCAKE_ROUTER
   );
-  const [address, setAddress] = useState<string>("");
+  const [address, setAddress] = useState<string>(
+    wa.web3 ? "" : localStorage.getItem("address") || ""
+  );
   const [showDetails, setShowDetails] = useState<boolean>(false);
 
   useEffect(() => {
@@ -36,7 +40,10 @@ function App() {
     };
   }, [routercontractAddress, contractAddress, showDetails]);
 
-  const wa: any = window;
+  function updateWalletAddress(_address: string) {
+    setAddress(_address);
+    localStorage.setItem("address", _address);
+  }
 
   return (
     <Web3ReactProvider getLibrary={getLibrary}>
@@ -57,7 +64,8 @@ function App() {
                 <AddressInput
                   placeholder="Enter your address"
                   label="Your address"
-                  callback={setAddress}
+                  defaultValue={address}
+                  callback={updateWalletAddress}
                 />
               )}
               <AddressInput
