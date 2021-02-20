@@ -1,7 +1,7 @@
 import Web3 from "web3";
 import { BalanceLP, BaseBalance, Balance } from "../types";
 import BigNumber from "bignumber.js";
-import { BNB, BUSD } from "./constants";
+import { BUSD } from "./constants";
 import Exchange from "./exchange";
 import { weiToEth } from "./unit";
 
