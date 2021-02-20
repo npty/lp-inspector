@@ -36,6 +36,8 @@ function App() {
     };
   }, [routercontractAddress, contractAddress, showDetails]);
 
+  const wa: any = window;
+
   return (
     <Web3ReactProvider getLibrary={getLibrary}>
       <div className="app-container">
@@ -45,10 +47,19 @@ function App() {
               <FontAwesomeIcon icon={faSearchDollar} className="app-icon" />
               <h1>How much is my LP worth?</h1>
             </div>
-            <ConnectWallet callback={setAddress}>Connect</ConnectWallet>
+            {wa.web3 && (
+              <ConnectWallet callback={setAddress}>Connect</ConnectWallet>
+            )}
           </div>
-          {address ? (
+          {address || !wa.web3 ? (
             <>
+              {!wa.web3 && (
+                <AddressInput
+                  placeholder="Enter your address"
+                  label="Your address"
+                  callback={setAddress}
+                />
+              )}
               <AddressInput
                 placeholder="Enter Masterchef address"
                 label="MasterChef address"
@@ -65,6 +76,7 @@ function App() {
               <div className="app-details-section">
                 {showDetails ? (
                   <BalanceDetails
+                    address={address}
                     contractAddress={contractAddress}
                     routerContractAddress={routercontractAddress}
                   />

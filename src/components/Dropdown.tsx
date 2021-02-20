@@ -15,7 +15,7 @@ function Dropdown({ callback, presets }: DropdownProps) {
     <div className="dropdown">
       <select name="contract" onChange={onChange}>
         {presets.map((preset) => {
-          return <option value={preset.address}>{preset.name}</option>;
+          return <option key={preset.name} value={preset.address}>{preset.name}</option>;
         })}
       </select>
     </div>

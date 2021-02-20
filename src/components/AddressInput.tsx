@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import "../styles/AddressInput.css";
 import Dropdown from "./Dropdown";
-import { ContractPreset } from '../types'
+import { ContractPreset } from "../types";
 import { validateAddress } from "../utils/validator";
 
 interface AddressInputProps {
   placeholder: string;
   label: string;
   defaultValue?: string;
-  presets: ContractPreset[],
+  presets?: ContractPreset[];
   callback: React.Dispatch<React.SetStateAction<string>>;
 }
 
@@ -47,7 +47,7 @@ function AddressInput({
     <>
       <div className="address-input-header">
         <label className="address-input-label">{label}</label>
-        <Dropdown callback={setAddress} presets={presets}/>
+        {presets && <Dropdown callback={setAddress} presets={presets} />}
       </div>
       <div className="address-input-container">
         <input

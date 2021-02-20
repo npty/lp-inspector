@@ -2,8 +2,6 @@ import React, { useState, useEffect, useCallback } from "react";
 import "../styles/BalanceDetails.css";
 import "../styles/BalanceCard.css";
 import "../styles/BalanceTotal.css";
-import { Web3Provider } from "@ethersproject/providers";
-import { useWeb3React } from "@web3-react/core";
 import { BalanceLP, Balance } from "../types";
 import BalanceCard from "../components/BalanceCard";
 import BalanceTotal from "../components/BalanceTotal";
@@ -14,20 +12,21 @@ import { queryContract } from "../utils/calculate";
 interface BalanceDetailsProps {
   contractAddress: string;
   routerContractAddress: string;
+  address: string
 }
 
 function BalanceDetails({
   contractAddress,
   routerContractAddress,
+  address
 }: BalanceDetailsProps) {
   const [balances, setBalances] = useState<(BalanceLP | Balance)[]>([]);
   const [fetching, setFetching] = useState<boolean>(false);
   const [retryNumber, setRetryNumber] = useState<number>(0);
   const [invalidContract, setInvalidContract] = useState(false);
-  const { account } = useWeb3React<Web3Provider>();
 
   const refreshCallback = useCallback(refresh, [
-    account,
+    address,
     contractAddress,
     routerContractAddress,
   ]);
@@ -74,9 +73,10 @@ function BalanceDetails({
       return queryContract(
         routerContractAddress,
         setBalances,
-        account,
+        address,
         contractAddress
       ).catch((e: any) => {
+        console.log(e)
         if (e.message.indexOf("Invalid JSON RPC response") > -1) {
           retry(e);
         } else if (e.message.indexOf("the correct ABI for the contract") > -1) {
