@@ -24,7 +24,7 @@ export const masterChefPresets = [
     address: "0xc772955c33088a97D56d0BBf473d05267bC4feBB",
   },
   {
-    name: "Kebap",
+    name: "Kebab",
     address: "0x76FCeffFcf5325c6156cA89639b17464ea833ECd",
   },
   {
@@ -34,6 +34,10 @@ export const masterChefPresets = [
   {
     name: "Auto",
     address: "0x0895196562C7868C5Be92459FaE7f877ED450452"
+  },
+  {
+    name: "Ramen",
+    address: "0x97dd424b4628c8d3bd7fcf3a4e974cebba011651"
   }
 ];
 
