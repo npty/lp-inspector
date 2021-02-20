@@ -22,14 +22,18 @@ export async function queryContract(
   const web3 = new Web3(provider);
   const contract = new web3.eth.Contract(masterape, contractAddress);
   const _poolLength = await contract.methods.poolLength().call();
-  const _balances = [];
-  for (let i = 0; i < parseInt(_poolLength); i++) {
-    const { "0": balance } = await contract.methods.userInfo(i, account).call();
 
-    if (balance !== "0") {
-      _balances.push({ pool: i, balance });
-    }
-  }
+  const _userInfoResults = await Promise.all(
+    [...Array(parseInt(_poolLength))].map((item, poolId) =>
+      contract.methods.userInfo(poolId, account).call()
+    )
+  );
+  const _balances = _userInfoResults
+    .map((result, poolId) => {
+      const balance = result["0"];
+      return { pool: poolId, balance };
+    })
+    .filter(b => b.balance !== "0");
 
   const _balancesLP = await Promise.all(
     _balances.map(async (b) => {
