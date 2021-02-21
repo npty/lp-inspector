@@ -5,7 +5,7 @@ export const BUSD = "0xe9e7cea3dedca5984780bafc599bd69add087d56";
 export const masterChefPresets = [
   {
     name: "-",
-    address: "",
+    address: "",  
   },
   {
     name: "PancakeSwap",
@@ -46,6 +46,10 @@ export const masterChefPresets = [
   {
     name: "DonutDefi",
     address: "0x93070Bd094Abdf8815Fadd40048812Ad815A3ec0"
+  },
+  {
+    name: "RoseSwap",
+    address: "0x5059acdce47c783442a353fcd2a7d226155f0135"
   }
 ];
 
