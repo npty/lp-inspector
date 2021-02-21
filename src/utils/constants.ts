@@ -50,6 +50,10 @@ export const masterChefPresets = [
   {
     name: "RoseSwap",
     address: "0x5059acdce47c783442a353fcd2a7d226155f0135"
+  },
+  {
+    name: "SaltSwap",
+    address: "0xB4405445fFAcF2B86BC2bD7D1C874AC739265658"
   }
 ];
 
