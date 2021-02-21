@@ -45,7 +45,7 @@ export const masterChefPresets = [
   },
   {
     name: "DonutDefi",
-    address: "0x93070bd094abdf8815fadd40048812ad815a3ec"
+    address: "0x93070Bd094Abdf8815Fadd40048812Ad815A3ec0"
   }
 ];
 
