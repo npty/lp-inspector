@@ -1,5 +1,6 @@
 import React from "react";
 import Web3 from "web3";
+import { AUTO } from "./constants";
 import { BalanceLP, Balance } from "../types";
 import { calculate } from "./token";
 const masterape = require("../abis/masterape.json");
@@ -25,7 +26,9 @@ export async function queryContract(
 
   const _userInfoResults = await Promise.all(
     [...Array(parseInt(_poolLength))].map((item, poolId) =>
-      contract.methods.userInfo(poolId, account).call()
+      contractAddress === AUTO
+        ? contract.methods.stakedWantTokens(poolId, account).call()
+        : contract.methods.userInfo(poolId, account).call()
     )
   );
   const _balances = _userInfoResults
@@ -33,7 +36,7 @@ export async function queryContract(
       const balance = result["0"];
       return { pool: poolId, balance };
     })
-    .filter(b => b.balance !== "0");
+    .filter((b) => b.balance !== "0");
 
   const _balancesLP = await Promise.all(
     _balances.map(async (b) => {
