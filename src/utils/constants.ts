@@ -1,11 +1,11 @@
 export const PANCAKE_ROUTER = "0x05ff2b0db69458a0750badebc4f9e13add608c7f";
 export const BNB = "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c";
 export const BUSD = "0xe9e7cea3dedca5984780bafc599bd69add087d56";
-export const AUTO = "0x0895196562C7868C5Be92459FaE7f877ED450452"
+export const AUTO = "0x0895196562C7868C5Be92459FaE7f877ED450452";
 export const masterChefPresets = [
   {
     name: "-",
-    address: "",  
+    address: "",
   },
   {
     name: "PancakeSwap",
@@ -33,28 +33,36 @@ export const masterChefPresets = [
   },
   {
     name: "Auto",
-    address: AUTO
+    address: AUTO,
   },
   {
     name: "Ramen",
-    address: "0x97dd424b4628c8d3bd7fcf3a4e974cebba011651"
+    address: "0x97dd424b4628c8d3bd7fcf3a4e974cebba011651",
   },
   {
     name: "XOXO",
-    address: "0x99724a8e73e3c100b8d2d9e118464a7837891d02"
+    address: "0x99724a8e73e3c100b8d2d9e118464a7837891d02",
   },
   {
     name: "DonutDefi",
-    address: "0x93070Bd094Abdf8815Fadd40048812Ad815A3ec0"
+    address: "0x93070Bd094Abdf8815Fadd40048812Ad815A3ec0",
   },
   {
     name: "RoseSwap",
-    address: "0x5059acdce47c783442a353fcd2a7d226155f0135"
+    address: "0x5059acdce47c783442a353fcd2a7d226155f0135",
   },
   {
     name: "SaltSwap",
-    address: "0xB4405445fFAcF2B86BC2bD7D1C874AC739265658"
-  }
+    address: "0xB4405445fFAcF2B86BC2bD7D1C874AC739265658",
+  },
+  {
+    name: "Icecream",
+    address: "0xc26316b19117495e89c187339ddb6e86f1e39f0c",
+  },
+  {
+    name: "ForkSwap",
+    address: "0xC46c1bcf592f94899DCDabCf9abb48436770a4f1",
+  },
 ];
 
 export const routerPresets = [
