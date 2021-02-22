@@ -4,6 +4,7 @@ import { AUTO } from "./constants";
 import { BalanceLP, Balance } from "../types";
 import { calculate } from "./token";
 const masterape = require("../abis/masterape.json");
+const auto = require("../abis/auto.json");
 
 export async function queryContract(
   routerContractAddress: string,
@@ -21,19 +22,23 @@ export async function queryContract(
     }
   );
   const web3 = new Web3(provider);
+  const autoContract = new web3.eth.Contract(auto, contractAddress);
   const contract = new web3.eth.Contract(masterape, contractAddress);
   const _poolLength = await contract.methods.poolLength().call();
 
   const _userInfoResults = await Promise.all(
     [...Array(parseInt(_poolLength))].map((item, poolId) =>
       contractAddress === AUTO
-        ? contract.methods.stakedWantTokens(poolId, account).call()
+        ? poolId
+          ? autoContract.methods.stakedWantTokens(poolId, account).call()
+          : "0"
         : contract.methods.userInfo(poolId, account).call()
     )
   );
+
   const _balances = _userInfoResults
     .map((result, poolId) => {
-      const balance = result["0"];
+      const balance = contractAddress === AUTO ? result : result["0"];
       return { pool: poolId, balance };
     })
     .filter((b) => b.balance !== "0");

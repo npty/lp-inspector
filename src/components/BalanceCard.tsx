@@ -29,7 +29,6 @@ function BalanceCard({ balance }: BalanceCardProps) {
   }
 
   function renderBalanceLP(balance: BalanceLP) {
-    console.log(balance)
     const _tokenAAmount = balance.tokenA.amount
       .dividedBy(10 ** balance.tokenA.decimals)
       .toFixed();
