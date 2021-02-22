@@ -74,4 +74,8 @@ export const routerPresets = [
     name: "ApeSwap",
     address: "0xC0788A3aD43d79aa53B09c2EaCc313A787d1d607",
   },
+  {
+    name: "Icecream",
+    address: "0x6728f3c8241c44cc741c9553ff7824ba9e932a4a"
+  }
 ];
