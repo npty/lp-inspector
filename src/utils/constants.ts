@@ -40,8 +40,8 @@ export const masterChefPresets = [
     address: "0x97dd424b4628c8d3bd7fcf3a4e974cebba011651",
   },
   {
-    name: "XOXO",
-    address: "0x99724a8e73e3c100b8d2d9e118464a7837891d02",
+    name: "KickStart",
+    address: "0x2ea36cd78f24ca535fb66e020d7963e7731dd371",
   },
   {
     name: "DonutDefi",
