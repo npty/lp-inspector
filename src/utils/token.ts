@@ -1,12 +1,14 @@
 import Web3 from "web3";
 import { BalanceLP, BaseBalance, Balance } from "../types";
 import BigNumber from "bignumber.js";
-import { BUSD } from "./constants";
+import { BNB, BUSD, ibBNB, ibBUSD, mebBNB, mebBUSD, USDT } from "./constants";
 import Exchange from "./exchange";
 import { weiToEth } from "./unit";
 
 const pair = require("../abis/pair.json");
 const erc20 = require("../abis/erc20.json");
+
+const stablecoins = [USDT, BUSD];
 
 async function isLP(web3: Web3, lp: BaseBalance) {
   const contractLP = new web3.eth.Contract(pair, lp.lpAddress);
@@ -68,22 +70,45 @@ async function calculateBalanceLP(
   const tokenBDecimals = await tokenBContract.methods.decimals().call();
 
   let worth: string = "0";
-  if (tokenA !== BUSD && tokenB !== BUSD) {
+  if (
+    stablecoins.indexOf(tokenA) === -1 &&
+    stablecoins.indexOf(tokenB) === -1
+  ) {
     const exchange = new Exchange(routerContractAddress);
-    const busdAmount = await exchange.getEquivalentToken(
-      tokenA,
-      BUSD,
-      tokenAmountA.integerValue().toFixed()
-    );
-    const _worth = new BigNumber(2)
-      .multipliedBy(busdAmount)
-      .integerValue()
-      .toFixed();
-    worth = parseFloat(weiToEth(_worth)).toFixed(2);
+    if (tokenA === BNB || tokenB === BNB) {
+      const bnb = tokenA === BNB ? tokenA : tokenB;
+      const bnbAmount = tokenA === BNB ? tokenAmountA : tokenAmountB;
+      const busdAmount = await exchange.getEquivalentToken(
+        bnb,
+        BUSD,
+        bnbAmount.integerValue().toFixed()
+      );
+      const _worth = new BigNumber(2)
+        .multipliedBy(busdAmount)
+        .integerValue()
+        .toFixed();
+      worth = parseFloat(weiToEth(_worth)).toFixed(2);
+    } else {
+      const stablecoin = stablecoins.indexOf(tokenA) > -1 ? tokenA : tokenB;
+      const token = stablecoin === tokenA ? tokenB : tokenA;
+      const tokenAmount = token === tokenA ? tokenAmountA : tokenAmountB;
+      const busdAmount = await exchange.getEquivalentToken(
+        token,
+        stablecoin,
+        tokenAmount.integerValue().toFixed()
+      );
+      const _worth = new BigNumber(2)
+        .multipliedBy(busdAmount)
+        .integerValue()
+        .toFixed();
+      worth = parseFloat(weiToEth(_worth)).toFixed(2);
+    }
   } else {
-    const busdAmount = tokenA === BUSD ? tokenAmountA : tokenAmountB;
+    const stablecoin = stablecoins.indexOf(tokenA) > -1 ? tokenA : tokenB;
+    const stablecoinAmount =
+      tokenA === stablecoin ? tokenAmountA : tokenAmountB;
     const _worth = new BigNumber(2)
-      .multipliedBy(busdAmount)
+      .multipliedBy(stablecoinAmount)
       .integerValue()
       .toFixed();
     worth = parseFloat(weiToEth(_worth)).toFixed(2);
@@ -91,8 +116,16 @@ async function calculateBalanceLP(
 
   return {
     ...lp,
-    tokenA: { name: tokenASymbol, amount: tokenAmountA, decimals: tokenADecimals },
-    tokenB: { name: tokenBSymbol, amount: tokenAmountB, decimals: tokenBDecimals },
+    tokenA: {
+      name: tokenASymbol,
+      amount: tokenAmountA,
+      decimals: tokenADecimals,
+    },
+    tokenB: {
+      name: tokenBSymbol,
+      amount: tokenAmountB,
+      decimals: tokenBDecimals,
+    },
     worth,
   };
 }
@@ -110,24 +143,31 @@ async function calculateBalance(
   const token = {
     name: tokenSymbol,
     amount: new BigNumber(tokenAmount),
-    decimals: tokenDecimals
+    decimals: tokenDecimals,
   };
 
   let worth = "0";
 
-  if (lp.lpAddress.toLowerCase() !== BUSD) {
+  const _tokenAddress =
+    [ibBNB, mebBNB].indexOf(lp.lpAddress.toLowerCase()) > -1
+      ? BNB
+      : lp.lpAddress.toLowerCase();
+
+  if ([BUSD, ibBUSD, mebBUSD].indexOf(_tokenAddress) > -1) {
+    worth = parseFloat(weiToEth(lp.balance)).toFixed(2);
+  } else {
     const exchange = new Exchange(routerContractAddress);
-    const [reserveA, reserveB] = await exchange.getReserves(lp.lpAddress, BUSD);
-    const busdAmount = new BigNumber(reserveA)
-      .div(reserveB)
+    const [reserveA, reserveB] = await exchange.getReserves(
+      _tokenAddress,
+      BUSD
+    );
+    const busdAmount = new BigNumber(reserveB)
+      .div(reserveA)
       .multipliedBy(tokenAmount)
       .integerValue()
       .toFixed();
     worth = parseFloat(weiToEth(busdAmount)).toFixed(2);
-  } else {
-    worth = parseFloat(weiToEth(lp.balance)).toFixed(2);
   }
-
   return {
     ...lp,
     token,

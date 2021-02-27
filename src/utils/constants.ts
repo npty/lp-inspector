@@ -1,7 +1,12 @@
 export const PANCAKE_ROUTER = "0x05ff2b0db69458a0750badebc4f9e13add608c7f";
 export const BNB = "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c";
 export const BUSD = "0xe9e7cea3dedca5984780bafc599bd69add087d56";
+export const USDT = "0x55d398326f99059ff775485246999027b3197955";
 export const AUTO = "0x0895196562C7868C5Be92459FaE7f877ED450452";
+export const ibBNB = "0xd7d069493685a581d27824fc46eda46b7efc0063";
+export const ibBUSD = "0x7c9e73d4c71dae564d41f78d56439bb4ba87592f";
+export const mebBUSD = "0x7e0c621ea9f7afd5b86a50b0942eaee68b04a61c";
+export const mebBNB = "0x639f18c72b6a017bdd209c161d1617c9481a1e4d";
 export const masterChefPresets = [
   {
     name: "-",
@@ -60,8 +65,24 @@ export const masterChefPresets = [
     address: "0xc26316b19117495e89c187339ddb6e86f1e39f0c",
   },
   {
-    name: "ForkSwap",
-    address: "0xC46c1bcf592f94899DCDabCf9abb48436770a4f1",
+    name: "Viking",
+    address: "0xEf6e807fD2c0Ef5883A03Ed1b962333E8C9b725f",
+  },
+  {
+    name: "UFO",
+    address: "0x95d9a00087f0db9e72b4014017842336480a153b",
+  },
+  {
+    name: "TACO",
+    address: "0x36f44a1C8e973739D0034FF1B9B9f6c4c7085625",
+  },
+  {
+    name: "Alpaca",
+    address: "0xA625AB01B08ce023B2a342Dbb12a16f2C8489A8F",
+  },
+  {
+    name: "Sashimi",
+    address: "0x34E483600e9c73390C7fBB4C9985a057156a611F",
   },
 ];
 
@@ -76,6 +97,10 @@ export const routerPresets = [
   },
   {
     name: "Icecream",
-    address: "0x6728f3c8241c44cc741c9553ff7824ba9e932a4a"
-  }
+    address: "0x6728f3c8241c44cc741c9553ff7824ba9e932a4a",
+  },
+  {
+    name: "Sashimi",
+    address: "0x24cEFA86fC1826FD31b4cb911034907735F8085A",
+  },
 ];
