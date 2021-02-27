@@ -60,8 +60,8 @@ export const masterChefPresets = [
     address: "0xc26316b19117495e89c187339ddb6e86f1e39f0c",
   },
   {
-    name: "ForkSwap",
-    address: "0xC46c1bcf592f94899DCDabCf9abb48436770a4f1",
+    name: "Viking",
+    address: "0xEf6e807fD2c0Ef5883A03Ed1b962333E8C9b725f",
   },
 ];
 
@@ -76,6 +76,6 @@ export const routerPresets = [
   },
   {
     name: "Icecream",
-    address: "0x6728f3c8241c44cc741c9553ff7824ba9e932a4a"
-  }
+    address: "0x6728f3c8241c44cc741c9553ff7824ba9e932a4a",
+  },
 ];
