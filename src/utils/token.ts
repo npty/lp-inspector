@@ -37,7 +37,6 @@ async function calculateBalanceLP(
   lp: BaseBalance,
   routerContractAddress: string
 ): Promise<BalanceLP> {
-  console.log("test");
   const contractLP = new web3.eth.Contract(pair, lp.lpAddress);
   const totalSupply = await contractLP.methods.totalSupply().call();
   const {
@@ -71,16 +70,31 @@ async function calculateBalanceLP(
   let worth: string = "0";
   if (tokenA !== BUSD && tokenB !== BUSD) {
     const exchange = new Exchange(routerContractAddress);
-    const busdAmount = await exchange.getEquivalentToken(
-      tokenA,
-      BUSD,
-      tokenAmountA.integerValue().toFixed()
-    );
-    const _worth = new BigNumber(2)
-      .multipliedBy(busdAmount)
-      .integerValue()
-      .toFixed();
-    worth = parseFloat(weiToEth(_worth)).toFixed(2);
+    if (tokenA === BNB || tokenB === BNB) {
+      const bnb = tokenA === BNB ? tokenA : tokenB;
+      const bnbAmount = tokenA === BNB ? tokenAmountA : tokenAmountB;
+      const busdAmount = await exchange.getEquivalentToken(
+        bnb,
+        BUSD,
+        bnbAmount.integerValue().toFixed()
+      );
+      const _worth = new BigNumber(2)
+        .multipliedBy(busdAmount)
+        .integerValue()
+        .toFixed();
+      worth = parseFloat(weiToEth(_worth)).toFixed(2);
+    } else {
+      const busdAmount = await exchange.getEquivalentToken(
+        tokenA,
+        BUSD,
+        tokenAmountA.integerValue().toFixed()
+      );
+      const _worth = new BigNumber(2)
+        .multipliedBy(busdAmount)
+        .integerValue()
+        .toFixed();
+      worth = parseFloat(weiToEth(_worth)).toFixed(2);
+    }
   } else {
     const busdAmount = tokenA === BUSD ? tokenAmountA : tokenAmountB;
     const _worth = new BigNumber(2)
