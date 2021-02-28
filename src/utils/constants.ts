@@ -67,6 +67,10 @@ export const masterChefPresets = [
     name: "UFO",
     address: "0x95d9a00087f0db9e72b4014017842336480a153b",
   },
+  {
+    name: "TACO",
+    address: "0x36f44a1C8e973739D0034FF1B9B9f6c4c7085625",
+  },
 ];
 
 export const routerPresets = [
