@@ -1,7 +1,7 @@
 import Web3 from "web3";
 import { BalanceLP, BaseBalance, Balance } from "../types";
 import BigNumber from "bignumber.js";
-import { BUSD } from "./constants";
+import { BNB, BUSD, ibBNB, ibBUSD } from "./constants";
 import Exchange from "./exchange";
 import { weiToEth } from "./unit";
 
@@ -37,6 +37,7 @@ async function calculateBalanceLP(
   lp: BaseBalance,
   routerContractAddress: string
 ): Promise<BalanceLP> {
+  console.log("test");
   const contractLP = new web3.eth.Contract(pair, lp.lpAddress);
   const totalSupply = await contractLP.methods.totalSupply().call();
   const {
@@ -91,8 +92,16 @@ async function calculateBalanceLP(
 
   return {
     ...lp,
-    tokenA: { name: tokenASymbol, amount: tokenAmountA, decimals: tokenADecimals },
-    tokenB: { name: tokenBSymbol, amount: tokenAmountB, decimals: tokenBDecimals },
+    tokenA: {
+      name: tokenASymbol,
+      amount: tokenAmountA,
+      decimals: tokenADecimals,
+    },
+    tokenB: {
+      name: tokenBSymbol,
+      amount: tokenAmountB,
+      decimals: tokenBDecimals,
+    },
     worth,
   };
 }
@@ -110,24 +119,29 @@ async function calculateBalance(
   const token = {
     name: tokenSymbol,
     amount: new BigNumber(tokenAmount),
-    decimals: tokenDecimals
+    decimals: tokenDecimals,
   };
 
   let worth = "0";
 
-  if (lp.lpAddress.toLowerCase() !== BUSD) {
+  const _tokenAddress =
+    lp.lpAddress.toLowerCase() === ibBNB ? BNB : lp.lpAddress.toLowerCase();
+
+  if ([BUSD, ibBUSD].indexOf(_tokenAddress) > -1) {
+    worth = parseFloat(weiToEth(lp.balance)).toFixed(2);
+  } else {
     const exchange = new Exchange(routerContractAddress);
-    const [reserveA, reserveB] = await exchange.getReserves(lp.lpAddress, BUSD);
-    const busdAmount = new BigNumber(reserveA)
-      .div(reserveB)
+    const [reserveA, reserveB] = await exchange.getReserves(
+      _tokenAddress,
+      BUSD
+    );
+    const busdAmount = new BigNumber(reserveB)
+      .div(reserveA)
       .multipliedBy(tokenAmount)
       .integerValue()
       .toFixed();
     worth = parseFloat(weiToEth(busdAmount)).toFixed(2);
-  } else {
-    worth = parseFloat(weiToEth(lp.balance)).toFixed(2);
   }
-
   return {
     ...lp,
     token,
