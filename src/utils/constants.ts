@@ -77,6 +77,14 @@ export const masterChefPresets = [
     name: "Alpaca",
     address: "0xA625AB01B08ce023B2a342Dbb12a16f2C8489A8F",
   },
+  {
+    name: "YieldNyan",
+    address: "0xC885b97220ad6a8dfE4AC7aF7C7A4776c7A21f06",
+  },
+  {
+    name: "DankSwap",
+    address: "0x4923de3EE2c525F3A6086B90d78630F8D9634223",
+  },
 ];
 
 export const routerPresets = [
