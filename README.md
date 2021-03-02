@@ -1,11 +1,8 @@
-# How much is my lp worth?
+Hi,
+I do not know how to contact you, so I am creating this PR as a communication mean.
+Thanks a lot for this project, given the MasterChef, it allows me to understand a lot on how the pools are handled.
+I am trying to list all the MasterChef addresses, and therefore ask the community to add/update the following repo: How much is my LP worth?
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+=> what do you think of using the jsons provided as a input for you? 
 
-A tool to calculate your lp worth in the staking contract.
-
-http://howmuchismylp.com/
-
-# License
-
-[MIT](https://github.com/npty/lp-inspector/blob/master/LICENSE)
+regards
