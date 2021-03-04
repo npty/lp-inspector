@@ -85,7 +85,7 @@ export const masterChefPresets = [
     address: "0x34E483600e9c73390C7fBB4C9985a057156a611F",
   },
   {
-    name: "Meercat",
+    name: "Meerkat",
     address: "0x293e5530bc53e117c446ed6878c7cd2978a85e00",
   },
 ];
