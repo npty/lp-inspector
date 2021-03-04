@@ -1,7 +1,7 @@
 import Web3 from "web3";
 import { BalanceLP, BaseBalance, Balance } from "../types";
 import BigNumber from "bignumber.js";
-import { BNB, BUSD, ibBNB, ibBUSD, USDT } from "./constants";
+import { BNB, BUSD, ibBNB, ibBUSD, mebBNB, mebBUSD, USDT } from "./constants";
 import Exchange from "./exchange";
 import { weiToEth } from "./unit";
 
@@ -149,9 +149,11 @@ async function calculateBalance(
   let worth = "0";
 
   const _tokenAddress =
-    lp.lpAddress.toLowerCase() === ibBNB ? BNB : lp.lpAddress.toLowerCase();
+    [ibBNB, mebBNB].indexOf(lp.lpAddress.toLowerCase()) > -1
+      ? BNB
+      : lp.lpAddress.toLowerCase();
 
-  if ([BUSD, ibBUSD].indexOf(_tokenAddress) > -1) {
+  if ([BUSD, ibBUSD, mebBUSD].indexOf(_tokenAddress) > -1) {
     worth = parseFloat(weiToEth(lp.balance)).toFixed(2);
   } else {
     const exchange = new Exchange(routerContractAddress);

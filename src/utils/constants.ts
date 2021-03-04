@@ -5,6 +5,8 @@ export const USDT = "0x55d398326f99059ff775485246999027b3197955";
 export const AUTO = "0x0895196562C7868C5Be92459FaE7f877ED450452";
 export const ibBNB = "0xd7d069493685a581d27824fc46eda46b7efc0063";
 export const ibBUSD = "0x7c9e73d4c71dae564d41f78d56439bb4ba87592f";
+export const mebBUSD = "0x7e0c621ea9f7afd5b86a50b0942eaee68b04a61c";
+export const mebBNB = "0x639f18c72b6a017bdd209c161d1617c9481a1e4d";
 export const masterChefPresets = [
   {
     name: "-",
@@ -81,6 +83,10 @@ export const masterChefPresets = [
   {
     name: "Sashimi",
     address: "0x34E483600e9c73390C7fBB4C9985a057156a611F",
+  },
+  {
+    name: "Meercat",
+    address: "0x293e5530bc53e117c446ed6878c7cd2978a85e00",
   },
 ];
 
