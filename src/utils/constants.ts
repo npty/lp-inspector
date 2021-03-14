@@ -84,6 +84,10 @@ export const masterChefPresets = [
     name: "Sashimi",
     address: "0x34E483600e9c73390C7fBB4C9985a057156a611F",
   },
+  {
+    name: "Cub Finance",
+    address: '0x227e79C83065edB8B954848c46ca50b96CB33E16'
+  }
 ];
 
 export const routerPresets = [
