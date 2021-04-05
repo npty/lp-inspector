@@ -92,6 +92,26 @@ export const masterChefPresets = [
     name: "Sashimi",
     address: "0x34E483600e9c73390C7fBB4C9985a057156a611F",
   },
+  {
+    name: "UFO",
+    address: "0x95d9a00087f0db9e72b4014017842336480a153b",
+  },
+  {
+    name: "TACO",
+    address: "0x36f44a1C8e973739D0034FF1B9B9f6c4c7085625",
+  },
+  {
+    name: "Alpaca",
+    address: "0xA625AB01B08ce023B2a342Dbb12a16f2C8489A8F",
+  },
+  {
+    name: "Sashimi",
+    address: "0x34E483600e9c73390C7fBB4C9985a057156a611F",
+  },
+  {
+    name: "Cub Finance",
+    address: '0x227e79C83065edB8B954848c46ca50b96CB33E16'
+  }
 ];
 
 export const routerPresets = [
