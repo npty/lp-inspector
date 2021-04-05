@@ -77,6 +77,30 @@ export const masterChefPresets = [
     address: "0x36f44a1C8e973739D0034FF1B9B9f6c4c7085625",
   },
   {
+    name: 'Cheesecake',
+    address: "0x398d648c58ccf6337dded3dac7cbd7970ae474b8"
+  },
+  {
+    name: 'Blue',
+    address: "0xb04381026F5D4AAf0487aC4336F16E133FA5FB0a"
+  },
+  {
+    name: "Alpaca",
+    address: "0xA625AB01B08ce023B2a342Dbb12a16f2C8489A8F",
+  },
+  {
+    name: "Sashimi",
+    address: "0x34E483600e9c73390C7fBB4C9985a057156a611F",
+  },
+  {
+    name: "UFO",
+    address: "0x95d9a00087f0db9e72b4014017842336480a153b",
+  },
+  {
+    name: "TACO",
+    address: "0x36f44a1C8e973739D0034FF1B9B9f6c4c7085625",
+  },
+  {
     name: "Alpaca",
     address: "0xA625AB01B08ce023B2a342Dbb12a16f2C8489A8F",
   },
