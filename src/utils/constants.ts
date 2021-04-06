@@ -95,7 +95,8 @@ export const masterChefPresets = [
   {
     name: "SPACE",
     address: "0xc8cf0767fB2258b23B90636A5e21cfaD113e8182",
-  },
+  }, 
+  {
     name: "UFO",
     address: "0x95d9a00087f0db9e72b4014017842336480a153b",
   },
