@@ -96,6 +96,7 @@ export const masterChefPresets = [
     name: "SPACE",
     address: "0xc8cf0767fB2258b23B90636A5e21cfaD113e8182",
   },
+  {
     name: "UFO",
     address: "0x95d9a00087f0db9e72b4014017842336480a153b",
   },
@@ -114,6 +115,18 @@ export const masterChefPresets = [
   {
     name: "Cub Finance",
     address: '0x227e79C83065edB8B954848c46ca50b96CB33E16'
+  },
+  {
+    name: "JAZZ",
+    address: "0xe09847360FbE8EBd8AF25BBd69937E100711883D",
+  },
+  {
+    name: 'TAKO',
+    address: "0x4448336BA564bd620bE90d55078e397c26492a43"
+  },
+  {
+    name: 'PHY',
+    address: "0xa7A1A6f7A7f03295E209E3CB5C602a80E10049eC"
   }
 ];
 
