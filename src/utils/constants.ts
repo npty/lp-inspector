@@ -37,10 +37,6 @@ export const masterChefPresets = [
     address: AUTO,
   },
   {
-    name: "Ramen",
-    address: "0x97dd424b4628c8d3bd7fcf3a4e974cebba011651",
-  },
-  {
     name: "Alpaca",
     address: "0xA625AB01B08ce023B2a342Dbb12a16f2C8489A8F",
   },
@@ -49,7 +45,7 @@ export const masterChefPresets = [
 export const routerPresets = [
   {
     name: "PancakeSwap",
-    address: "0x05ff2b0db69458a0750badebc4f9e13add608c7f",
+    address: PANCAKE_ROUTER,
   },
   {
     name: "ApeSwap",
