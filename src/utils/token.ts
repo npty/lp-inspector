@@ -89,18 +89,34 @@ async function calculateBalanceLP(
         .toFixed();
       worth = parseFloat(weiToEth(_worth)).toFixed(2);
     } else {
-      const stablecoin = stablecoins.indexOf(tokenA) > -1 ? tokenA : tokenB;
-      const token = stablecoin === tokenA ? tokenB : tokenA;
-      const tokenAmount = token === tokenA ? tokenAmountA : tokenAmountB;
-      const busdAmount = await exchange.getEquivalentToken(
-        token,
-        stablecoin,
+      const [, reserveABnb] = await exchange.getReserves(tokenA, BNB)
+      const [, reserveBBnb] = await exchange.getReserves(tokenB, BNB)
+      let quoteToken
+      console.log(reserveABnb)
+      if (new BigNumber(reserveABnb).gt(new BigNumber(reserveBBnb))) {
+        quoteToken = tokenA
+      } else {
+        quoteToken = tokenB
+      }
+
+      const tokenAmount = quoteToken === tokenA ? tokenAmountA : tokenAmountB;
+      const bnbAmount = await exchange.getEquivalentToken(
+        quoteToken,
+        BNB,
         tokenAmount.integerValue().toFixed()
       );
+
+      const busdAmount = await exchange.getEquivalentToken(
+        BNB,
+        BUSD,
+        bnbAmount
+      );
+
       const _worth = new BigNumber(2)
-        .multipliedBy(busdAmount)
-        .integerValue()
-        .toFixed();
+      .multipliedBy(busdAmount)
+      .integerValue()
+      .toFixed();
+
       worth = parseFloat(weiToEth(_worth)).toFixed(2);
     }
   } else {
